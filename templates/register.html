@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% include 'shared/libraries.html' %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+<body>
+    {% include 'shared/nav.html' %}
+    <div class="wrapper fadeInDown">
+      <div id="formContent">
+        <!-- Tabs Titles -->
+
+        <!-- Icon -->
+        <div class="fadeIn first">
+          <img src="{% static 'img/login.png' %}" id="icon" alt="User Icon" />
+        </div>
+        <h3>Register</h3>
+        <!-- Login Form -->
+        <form>
+          <input type="text" id="username" class="fadeIn second" name="username" placeholder="Username">
+          <input type="password" id="password" class="fadeIn third" name="password" placeholder="Password">
+            <input type="password" id="re_password" class="fadeIn fourth" name="re_password" placeholder="Re-enter password">
+          <input type="submit" class="fadeIn fourth" value="Log In">
+        </form>
+
+        <!-- Remind Passowrd -->
+        <!--
+        <div id="formFooter">
+          <a class="underlineHover" href="#">Forgot Password?</a>
+        </div>
+        -->
+
+      </div>
+    </div>
+</body>
+</html>
