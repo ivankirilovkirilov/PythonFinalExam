@@ -6,6 +6,7 @@
     <title>Title</title>
     {% include 'shared/libraries.html' %}
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
+
 </head>
 <body>
     {% include 'shared/nav.html' %}
@@ -17,12 +18,12 @@
         <div class="fadeIn first">
           <img src="{% static 'img/login.png' %}" id="icon" alt="User Icon" />
         </div>
-        <h3>Login</h3>
+        <h3>Register</h3>
         <!-- Login Form -->
-        <form>
-          <input type="text" id="username" class="fadeIn second" name="username" placeholder="Username">
-          <input type="password" id="password" class="fadeIn third" name="password" placeholder="Password">
-          <input type="submit" class="fadeIn fourth" value="Log In">
+        <form method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Register">
         </form>
 
         <!-- Remind Passowrd -->
