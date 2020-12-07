@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Account</title>
+    {% include 'shared/libraries.html' %}
+    <style>
+        .profile {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .profile * {
+            width: 100%;
+            text-align: center;
+        }
+
+        .button {
+            border: 1px solid black;
+            border-radius: 9px;
+            padding: 10px;
+            margin: 2px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .edit_button {
+            background-color: #299d03;
+        }
+        .delete_button {
+            background-color: #c80505;
+        }
+
+    </style>
+</head>
+<body>
+{% include 'shared/nav.html' %}
+{% if user.is_authenticated %}
+
+    <div class="profile">
+        <div style="margin-top: 20px;">
+            <h3 style="font-weight: 100;">Hi, <b>{{ user.username }}</b>! Are you sure you want to delete your Account in our website? All your data and posts will be deleted. The threads that you created will be deleted too. </h3>
+        </div>
+
+        <div style="display: inherit; width: 20%;">
+            <a style="margin-top: 30px;">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form }}
+                    <input class="button delete_button" type="submit" value="Delete Account">
+                </form>
+            </a>
+        </div>
+    </div>
+{% else %}
+    <p>Welcome, new user. Please log in.</p>
+{% endif %}
+
+
+</body>
+</html>

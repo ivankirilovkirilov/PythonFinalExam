@@ -3,65 +3,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Posts | {{ user.username }}</title>
     {% include 'shared/libraries.html' %}
-    <style>
-
-        .posts {
-            display: flex;
-            justify-content: center;
-        }
-
-        .post_image_div {
-            float: left;
-            width: 30%;
-            text-align: center;
-            padding-right: 10px;
-        }
-
-        .post_image {
-            max-width: 160px;
-            max-height: 180px;
-
-        }
-        .post_text {
-            margin: 0px;
-        }
-
-        .post_text_div {
-            float: left;
-            width: 70%;
-        }
-
-        .post {
-            width: 600px;
-            border: 3px solid #dddddd;
-            border-radius: 9px;
-            margin: 10px;
-            padding: 10px;
-
-
-        }
-
-        .post:after {
-            content: "";
-            display: table;
-            clear: both;
-        }
-
-    </style>
+    <link rel="stylesheet" href="{% static "css/index.css" %}">
 </head>
 <body>
 {% include 'shared/nav.html' %}
+
 <div class="posts">
     {% for post in posts %}
         <div class="post">
             <div class="post_image_div">
-                <img src="media/{{ post.image }}" class="post_image">
+                <img src="/media/{{ post.image }}" class="post_image">
             </div>
             <div class="post_text_div">
                 <h3 class="post_heading">{{ post.heading }}</h3>
-                <p class="post_text">{{ post.text|truncatechars:330 }}</p>
+                <p class="post_text">{{ post.text|truncatechars:200 }}</p>
+                <p class="post_text"><b>Created by: {{ post.user.username }}</b></p>
             </div>
         </div>
     {% endfor %}

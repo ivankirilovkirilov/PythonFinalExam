@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Account | {{ user.username }}</title>
+    {% include 'shared/libraries.html' %}
+    <style>
+        .profile {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .profile * {
+            width: 100%;
+            text-align: center;
+        }
+
+        .button {
+            border: 1px solid black;
+            border-radius: 9px;
+            padding: 10px;
+            margin: 2px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .edit_button {
+            background-color: #299d03;
+        }
+        .delete_button {
+            background-color: #c80505;
+        }
+
+    </style>
+</head>
+<body>
+{% include 'shared/nav.html' %}
+{% if user.is_authenticated %}
+
+    <div class="profile">
+        <div style="margin-top: 20px;">
+            <h3>Welcome, <b>{{ user.get_username }}</b>.</h3>
+        </div>
+        <div>
+            <p>Last login: <b>{{ user.last_login }}</b></p>
+        </div>
+        <div>
+            <p>Profile creation: <b>{{ user.date_joined }}</b></p>
+        </div>
+        <div style="display: inherit; width: 40%;">
+            <a href="/accounts/password_change" style="margin-right: 2px;">
+                <button class="button edit_button">Change Password</button>
+            </a>
+            <a href="/accounts/profile/delete" style="margin-left: 2px;">
+                <button class="button delete_button">Delete Account</button>
+            </a>
+        </div>
+    </div>
+{% else %}
+    <p>Welcome, new user. Please log in.</p>
+{% endif %}
+
+
+</body>
+</html>
