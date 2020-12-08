@@ -1,6 +1,6 @@
 {% load static %}
 <nav class="navbar navbar-expand-md navbar-light" style="background-color: #dddddd;">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="/">
         <img src="{% static 'img/logo.png' %}" alt="Logo" style="width:90px;">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
@@ -35,6 +35,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/accounts/profile/"><b>{{ user.username }}</b>'s Account</a>
                 </li>
+                {% if user.is_superuser %}
+                    <li class="nav-item">
+                    <a class="nav-link" href="/admin/">Admin Panel</a>
+                </li>
+                {% endif %}
                 <li class="nav-item">
                     <a class="nav-link" href="/accounts/logout/">Logout</a>
                 </li>
