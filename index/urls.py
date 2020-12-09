@@ -9,6 +9,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_views.index),
     path('create_post/', home_views.create_post),
+    path('commented_posts/', home_views.commented_posts),
+    path('posts/<int:post_id>/', home_views.post_info),
     path('user_posts/', home_views.user_posts),
     path('register/', home_views.register),
     path('accounts/', include('django.contrib.auth.urls')),

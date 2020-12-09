@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Post | {{ post.heading }}</title>
+    {% include 'shared/libraries.html' %}
+    <link rel="stylesheet" href="{% static "css/index.css" %}">
+    <style>
+        #id_text, .add_comment {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+{% include 'shared/nav.html' %}
+<div class="custom_container">
+
+    <div class="full_post">
+        <div class="post_image_div">
+            <img src="/media/{{ post.image }}" class="post_image">
+            <p class="post_text"><b>Created by: {{ post.user.username }}</b>
+                {% if post.user.is_superuser %}
+                    <b>(administrator)</b>
+                {% endif %}
+            </p>
+        </div>
+        <div class="post_text_div">
+            <h3 class="post_heading">{{ post.heading }}</h3>
+            <p class="post_text">{{ post.text }}</p>
+
+        </div>
+    </div>
+
+    <div class="comments">
+        {% if post_comments %}
+            {% for comment in post_comments %}
+                <div class="comment">
+                    <div class="post_image_div">
+                        <p>Commented by: {{ comment.user.username }}
+                        {% if comment.user.is_superuser %}
+                             <b>(administrator)</b>
+                        {% endif %}
+                        </p>
+                        <p>Date Commented: {{ comment.date }}</p>
+                    </div>
+                    <div class="post_text_div">
+                        <p class="post_text">{{ comment.text }}</p>
+                    </div>
+                </div>
+                <hr style="width: 100%">
+            {% endfor %}
+        {% else %}
+            <h4>Add first post!</h4>
+        {% endif %}
+        <div class="add_comment">
+            <h5>Add your comment here: </h5>
+            <form method="post">
+                {% csrf_token %}
+                {{ form }}
+                <input type="submit" value="Comment">
+            </form>
+    </div>
+    </div>
+
+
+</div>
+
+</body>
+</html>

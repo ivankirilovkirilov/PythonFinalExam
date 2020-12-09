@@ -12,16 +12,22 @@
 
 <div class="posts">
     {% for post in posts %}
-        <div class="post">
-            <div class="post_image_div">
-                <img src="/media/{{ post.image }}" class="post_image">
+        <a style="color: black;" href="/posts/{{ post.id }}">
+            <div class="post">
+                <div class="post_image_div">
+                    <img src="/media/{{ post.image }}" class="post_image">
+                </div>
+                <div class="post_text_div">
+                    <h3 class="post_heading">{{ post.heading }}</h3>
+                    <p class="post_text">{{ post.text|truncatechars:200 }}</p>
+                    <p class="post_text"><b>Created by: {{ post.user.username }}</b>
+                        {% if post.user.is_superuser %}
+                            <b>(administrator)</b>
+                        {% endif %}
+                    </p>
+                </div>
             </div>
-            <div class="post_text_div">
-                <h3 class="post_heading">{{ post.heading }}</h3>
-                <p class="post_text">{{ post.text|truncatechars:200 }}</p>
-                <p class="post_text"><b>Created by: {{ post.user.username }}</b></p>
-            </div>
-        </div>
+        </a>
     {% endfor %}
 </div>
 

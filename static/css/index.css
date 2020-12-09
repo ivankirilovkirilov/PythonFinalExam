@@ -1,4 +1,4 @@
-        .posts {
+        .posts, .comments {
             display: flex;
             flex-flow: wrap;
             justify-content: center;
@@ -34,10 +34,31 @@
             border-radius: 9px;
             margin: 10px;
             padding: 10px;
-
         }
 
-        .post:after {
+        .full_post, .comments {
+            width: 80%;
+            margin-left: 10%;
+            margin-top: 30px;
+            border: 3px solid #dddddd;
+            border-radius: 9px;
+            overflow: auto;
+            padding: 10px;
+        }
+
+        .comments {
+            width: 70%;
+            margin-left: 15%;
+        }
+        .comment {
+            width: 100%;
+        }
+
+        .comment .post_image_div {
+            max-width: 300px;
+        }
+
+        .post:after .full_post:after {
             content: "";
             display: table;
             clear: both;

@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 
-from home.models import Post
+from home.models import Post, PostComment
 
 
 # class RegisterForm(forms.ModelForm):
@@ -34,3 +34,10 @@ class PostCreationForm(forms.ModelForm):
 
 class DeleteProfileForm(forms.Form):
     username = forms.CharField(label='', max_length=100, widget = forms.HiddenInput())
+
+
+class PostCommentForm(forms.ModelForm):
+    class Meta:
+        model = PostComment
+        fields = "__all__"
+        exclude = ['user', 'post']

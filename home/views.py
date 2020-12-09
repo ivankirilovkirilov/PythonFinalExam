@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
 # from .forms import RegisterForm, LoginForm
-from .forms import DeleteProfileForm, PostCreationForm
-from .models import Post
+from .forms import DeleteProfileForm, PostCreationForm, PostCommentForm
+from .models import Post, PostComment
 
 
 def index(request):
@@ -97,3 +97,26 @@ def delete_account(request):
         form = DeleteProfileForm()
 
     return render(request, "registration/delete_account.html", {"form":form})
+
+
+def post_info(request, post_id):
+    post = Post.objects.get(id=post_id)
+    if request.method == "POST":
+        form = PostCommentForm(request.POST)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.user = request.user
+            instance.post = post
+            form.save()
+            return redirect(f"/posts/{post_id}/")
+    else:
+        form = PostCommentForm()
+    post_comments = PostComment.objects.filter(post_id=post_id).order_by('id')
+
+    return render(request, "post_comments.html", {"form": form, "post": post, "post_comments": post_comments})
+
+
+def commented_posts(request):
+
+    posts = Post.objects.filter(postcomment__user_id=request.user.id).distinct()
+    return render(request, "commented_posts.html", {"posts": posts})

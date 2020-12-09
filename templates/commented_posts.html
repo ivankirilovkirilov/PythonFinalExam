@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Your posts | {{ user.username }}</title>
+    <title>Commented posts | {{ user.username }}</title>
     {% include 'shared/libraries.html' %}
     <link rel="stylesheet" href="{% static "css/index.css" %}">
     <style>
@@ -50,7 +50,11 @@
                     <div class="post_text_div">
                         <h3 class="post_heading">{{ post.heading }}</h3>
                         <p class="post_text">{{ post.text|truncatechars:200 }}</p>
-                        <p class="post_text"><b>Created by: {{ post.user.username }}</b></p>
+                        <p class="post_text"><b>Created by: {{ post.user.username }}</b>
+                        {% if post.user.is_superuser %}
+                            <b>(administrator)</b>
+                        {% endif %}
+                        </p>
                     </div>
                 </div>
             </a>
@@ -58,14 +62,7 @@
     {% else %}
         <div class="no_posts">
             <div>
-                <h3 style="margin-top: 30px;">You have no posts.</h3>
-            </div>
-
-
-            <div style="display: inherit; width: 40%;">
-                <a href="/create_post/" style="margin-right: 2px;">
-                    <button class="button add_post_button">Add Post</button>
-                </a>
+                <h3 style="margin-top: 30px;">You have no comments.</h3>
             </div>
 
         </div>
