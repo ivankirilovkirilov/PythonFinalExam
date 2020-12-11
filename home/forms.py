@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 
-from home.models import Post, PostComment
+from home.models import Post, PostComment, PostLike
 
 
 # class RegisterForm(forms.ModelForm):
@@ -39,5 +39,19 @@ class DeleteProfileForm(forms.Form):
 class PostCommentForm(forms.ModelForm):
     class Meta:
         model = PostComment
+        fields = "__all__"
+        exclude = ['user', 'post']
+
+
+class PostLikeForm(forms.ModelForm):
+    class Meta:
+        model = PostLike
+        fields = "__all__"
+        exclude = ['user', 'post']
+
+
+class PostDislikeForm(forms.ModelForm):
+    class Meta:
+        model = PostLike
         fields = "__all__"
         exclude = ['user', 'post']

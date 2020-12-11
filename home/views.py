@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
 # from .forms import RegisterForm, LoginForm
-from .forms import DeleteProfileForm, PostCreationForm, PostCommentForm
-from .models import Post, PostComment
+from .forms import DeleteProfileForm, PostCreationForm, PostCommentForm, PostLikeForm
+from .models import Post, PostComment, PostLike
 
 
 def index(request):
@@ -112,11 +112,47 @@ def post_info(request, post_id):
     else:
         form = PostCommentForm()
     post_comments = PostComment.objects.filter(post_id=post_id).order_by('id')
+    post_likes = PostLike.objects.filter(post_id=post_id)
+    like_form = PostLikeForm()
+    user = request.user
+    already_liked = False
+    for like in post_likes:
+        if like.user == user:
+            already_liked = True
+            break
+        else:
+            already_liked = False
 
-    return render(request, "post_comments.html", {"form": form, "post": post, "post_comments": post_comments})
+    return render(request, "post_comments.html",
+                {
+                    "form": form,
+                    "post": post,
+                    "post_comments": post_comments,
+                    "likes": post_likes,
+                    "like_form": like_form,
+                    "already_liked": already_liked,
+                }
+    )
 
 
 def commented_posts(request):
 
     posts = Post.objects.filter(postcomment__user_id=request.user.id).distinct()
     return render(request, "commented_posts.html", {"posts": posts})
+
+
+def like_post(request, post_id):
+    if request.method == "POST":
+        form = PostLikeForm(request.POST)
+        post_likes = PostLike.objects.filter(post_id=post_id)
+        if form.is_valid():
+            for like in post_likes:
+                if like.user == request.user:
+                    like.delete()
+                    return redirect(f"/posts/{post_id}/")
+            instance = form.save(commit=False)
+            instance.user = request.user
+            instance.post = Post.objects.get(id=post_id)
+            form.save()
+
+    return redirect(f"/posts/{post_id}/")

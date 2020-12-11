@@ -50,11 +50,15 @@
                     <div class="post_text_div">
                         <h3 class="post_heading">{{ post.heading }}</h3>
                         <p class="post_text">{{ post.text|truncatechars:200 }}</p>
-                        <p class="post_text"><b>Created by: {{ post.user.username }}</b>
-                        {% if post.user.is_superuser %}
-                            <b>(administrator)</b>
-                        {% endif %}
-                        </p>
+                        <b>
+                            <p class="post_text">Created by: {{ post.user.username }}
+                                {% if post.user.is_superuser %}
+                                    <b>(administrator)</b>
+                                {% endif %}
+                            </p>
+                            <p class="post_text">Category: {{ post.category }}</p>
+                            <p class="post_text">Date: {{ post.date }}</p>
+                        </b>
                     </div>
                 </div>
             </a>

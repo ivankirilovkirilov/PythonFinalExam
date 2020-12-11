@@ -30,3 +30,8 @@ class PostComment(models.Model):
 
     def __str__(self):
         return f"{self.post.heading} | {self.user.username}"
+
+
+class PostLike(models.Model):
+    user = models.ForeignKey(User, on_delete=SET_NULL, null=True)
+    post = models.ForeignKey(Post, on_delete=CASCADE)
