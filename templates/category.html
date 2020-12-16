@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ category.category_name }} | {{ user.username }}</title>
+    {% include 'shared/libraries.html' %}
+    <link rel="stylesheet" href="{% static "css/index.css" %}">
+</head>
+<body>
+{% include 'shared/nav.html' %}
+
+<div class="posts">
+    {% for post in posts %}
+        <a style="color: black;" href="/posts/{{ post.id }}">
+            <div class="post">
+                <div class="post_image_div">
+                    <img src="/media/{{ post.image }}" class="post_image">
+                </div>
+                <div class="post_text_div">
+                    <h3 class="post_heading">{{ post.heading }}</h3>
+                    <p class="post_text">{{ post.text|truncatechars:200 }}</p>
+                    <b>
+                        <p class="post_text">Created by: {{ post.user.username }}
+                            {% if post.user.is_superuser %}
+                                <b>(administrator)</b>
+                            {% endif %}
+                        </p>
+                        <p class="post_text">Category: {{ post.category }}</p>
+                        <p class="post_text">Date: {{ post.date }}</p>
+                    </b>
+                </div>
+            </div>
+        </a>
+    {% endfor %}
+</div>
+
+</body>
+</html>

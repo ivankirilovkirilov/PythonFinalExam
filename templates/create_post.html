@@ -18,6 +18,7 @@
             transform: translate(-50%, 0);
         }
     </style>
+    <script src="{% static "js/create_post.js" %}"></script>
 </head>
 <body>
 
@@ -35,6 +36,7 @@
         <h3>Create Post</h3>
         <!-- Login Form -->
         <form method="post" enctype='multipart/form-data'>
+            <img id="image_preview" src="#">
             {% csrf_token %}
             {{ form }}
             <br>

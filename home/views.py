@@ -2,10 +2,11 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
+from django.db.models import Count
 
 # from .forms import RegisterForm, LoginForm
 from .forms import DeleteProfileForm, PostCreationForm, PostCommentForm, PostLikeForm
-from .models import Post, PostComment, PostLike
+from .models import Post, PostComment, PostLike, Category
 
 
 def index(request):
@@ -156,3 +157,17 @@ def like_post(request, post_id):
             form.save()
 
     return redirect(f"/posts/{post_id}/")
+
+
+def category_chooser(request):
+    categories = Category.objects.all()
+
+    posts_counter = Post.objects.annotate(total_categories=Count('category'))
+
+    return render(request, "category_chooser.html", {"categories": categories})
+
+
+def category(request, category_id):
+    choosen_category = Category.objects.get(id=category_id)
+    posts = Post.objects.filter(category=choosen_category)
+    return render(request, "category.html", {"posts":posts, "category": choosen_category})

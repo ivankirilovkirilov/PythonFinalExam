@@ -11,6 +11,8 @@ urlpatterns = [
     path('create_post/', home_views.create_post),
     path('commented_posts/', home_views.commented_posts),
     path('posts/<int:post_id>/', home_views.post_info),
+    path('categories/', home_views.category_chooser),
+    path('categories/<int:category_id>/', home_views.category),
     path('like_post/<int:post_id>/', home_views.like_post),
     path('user_posts/', home_views.user_posts),
     path('register/', home_views.register),

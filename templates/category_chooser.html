@@ -1,0 +1,30 @@
+{% load static %}
+{% load custom_filter_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Categories | {{ user.username }}</title>
+    {% include 'shared/libraries.html' %}
+    <link rel="stylesheet" href="{% static "css/index.css" %}">
+</head>
+<body>
+{% include 'shared/nav.html' %}
+<h3 style="text-align: center; margin-top: 30px; margin-bottom: 30px;">Choose category</h3>
+<div class="categories">
+    <ol class="rounded-list">
+         {% for category in categories %}
+            <a href="/categories/{{ category.id }}">
+                <li>
+                    {{ category.category_name }} | {{ category|count_posts_in_category }} total posts, {{ category|count_user_posts_in_category:user }} yours
+                </li>
+            </a>
+        {% endfor %}
+    </ol>
+    <ol>
+
+    </ol>
+</div>
+
+</body>
+</html>
