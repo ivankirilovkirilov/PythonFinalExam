@@ -1,6 +1,7 @@
 ## Table of contents
 * [General info](#general-info)
 * [Technologies](#technologies)
+* [Used Django Technologies](#Used Django Technologies)
 
 ## General info
 This project is simple blog website that users can use to share things in different categories like: Food, Fashion, Business and etc.
@@ -23,3 +24,19 @@ They are the ones who can make registered users to administrators.
 Project is created with:
 * Django version: 3.0
 * PostgreSQL version: 13.1
+* HTML version: 5
+* CSS version: 3
+* Jquery version: 3.4.1
+
+
+
+## Used Django Technologies
+Project is created with:
+* Django UserCreationForm
+* Forms
+* ModelForms
+* Filters
+* Custom Filters
+* Media files
+* Static files
+
