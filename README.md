@@ -1,7 +1,7 @@
 ## Table of contents
 * [General info](#general-info)
 * [Technologies](#technologies)
-* [Used Django Technologies](#Used Django Technologies)
+* [Used Django Technologies](#Used-Django-Technologies)
 
 ## General info
 This project is simple blog website that users can use to share things in different categories like: Food, Fashion, Business and etc.
