@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ command }} comment | {{ post.heading }}</title>
+    {% include 'shared/libraries.html' %}
+    <link rel="stylesheet" href="{% static "css/index.css" %}">
+    <style>
+        #id_text, .add_comment {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+{% include 'shared/nav.html' %}
+<div class="custom_container">
+
+    {% if user.is_authenticated %}
+        <div class="add_comment">
+            <h5>{{ command }} this comment: </h5>
+            <form method="post">
+                {% csrf_token %}
+                {{ form }}
+                <input type="submit" value="{{ command }}">
+            </form>
+        </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>

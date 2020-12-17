@@ -25,7 +25,7 @@ def create_post(request):
             return redirect("/")
     else:
         form = PostCreationForm()
-    return render(request, "create_post.html", {"form": form})
+    return render(request, "create_post.html", {"form": form, "command":"Create"})
 
 
 def user_posts(request):
@@ -171,3 +171,56 @@ def category(request, category_id):
     choosen_category = Category.objects.get(id=category_id)
     posts = Post.objects.filter(category=choosen_category)
     return render(request, "category.html", {"posts":posts, "category": choosen_category})
+
+
+def edit_post(request, post_id):
+    post = Post.objects.get(id=post_id)
+    if request.method == "POST":
+        form = PostCreationForm(request.POST, request.FILES, instance=post)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.user = request.user
+            form.save()
+            return redirect("/")
+    else:
+        form = PostCreationForm(instance=post)
+    return render(request, "create_post.html", {"form": form, "command":"Edit"})
+
+
+def delete_post(request, post_id):
+    post = Post.objects.get(id=post_id)
+    if request.method == "POST":
+        form = PostCreationForm(request.POST, request.FILES, instance=post)
+        if form.is_valid():
+            post.delete()
+            return redirect("/")
+    else:
+        form = PostCreationForm(instance=post)
+    return render(request, "create_post.html", {"form": form, "command":"Delete"})
+
+
+def edit_comment(request, comment_id):
+    comment = PostComment.objects.get(id=comment_id)
+    if request.method == "POST":
+        form = PostCommentForm(request.POST, request.FILES, instance=comment)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.user = request.user
+            form.save()
+            return redirect("/")
+    else:
+        form = PostCommentForm(instance=comment)
+    return render(request, "edit_comment.html", {"form": form, "command":"Edit"})
+
+
+def delete_comment(request, comment_id):
+    comment = PostComment.objects.get(id=comment_id)
+    if request.method == "POST":
+        form = PostCommentForm(request.POST, request.FILES, instance=comment)
+        if form.is_valid():
+            comment.delete()
+            return redirect("/")
+    else:
+        form = PostCommentForm(instance=comment)
+        form.fields['text'].widget.attrs['readonly'] = True
+    return render(request, "edit_comment.html", {"form": form, "command":"Delete"})

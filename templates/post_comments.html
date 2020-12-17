@@ -40,6 +40,10 @@
                     value="Like"
                 {% endif %}
                 >
+                {% if post.user.id == user.id %}
+                    <a href="/edit_post/{{ post.id }}/">Edit post</a>
+                    <a href="/delete_post/{{ post.id }}/">Delete post</a>
+                {% endif %}
             </form>
         {% endif %}
 
@@ -62,6 +66,10 @@
                         {% endif %}
                         </p>
                         <p>Date Commented: {{ comment.date }}</p>
+                        {% if comment.user.id == user.id %}
+                            <a href="/edit_comment/{{ comment.id }}/">Edit comment</a>
+                            <a href="/delete_comment/{{ comment.id }}/">Delete comment</a>
+                        {% endif %}
                     </div>
                     <div class="post_text_div">
                         <p class="post_text">{{ comment.text }}</p>
